@@ -1167,6 +1167,7 @@ h1 {
 
     #phase-3 {
         padding: 45px 18px;
+        overflow: auto;
     }
 
     .date-title {
