@@ -762,7 +762,7 @@ h1 {
     align-items: center;
     justify-content: center;
     padding: 60px 25px;
-    overflow-y: auto;
+    overflow: visible;
     background:
         radial-gradient(circle at 20% 20%, rgba(255, 180, 210, 0.20), transparent 35%),
         radial-gradient(circle at 80% 80%, rgba(180, 150, 255, 0.20), transparent 35%),
@@ -866,7 +866,8 @@ h1 {
 
     padding: 35px;
 
-    min-height: 390px;
+    min-height: auto;
+    height: auto;
 
     border-radius: 30px;
 
