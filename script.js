@@ -125,7 +125,7 @@ function selectDate(date) {
         console.log("September 23 story selected ✨");
 
         // Leave this untouched for now
-        alert("September 23 story selected ✨");
+        alert("This will unlock on 23 September Gadhi... 🫏");
 
     }
 
