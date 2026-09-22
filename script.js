@@ -20,9 +20,28 @@ const specialPage = document.getElementById("specialPage");
 const specialNext = document.getElementById("specialNext");
 
 const phase3 = document.getElementById("phase-3");
+
+const songPage = document.getElementById("song-page");
+const songBackButton = document.getElementById("songBackButton");
+
+const birthdaySong = document.getElementById("birthdaySong");
+const songPlayButton = document.getElementById("songPlayButton");
+const songPlayIcon = document.getElementById("songPlayIcon");
+
+const songProgress = document.getElementById("songProgress");
+const songCurrentTime = document.getElementById("songCurrentTime");
+const songDuration = document.getElementById("songDuration");
+
+const lyricLines = document.querySelectorAll(".lyric-line");
+const vinyl = document.querySelector(".vinyl");
 const sep15Page1 = document.getElementById("sep15-page1");
 const sep15Stars = document.getElementById("sep15Stars");
 const sep15OpenButton = document.getElementById("sep15OpenButton");
+
+const sep23Page1 = document.getElementById("sep23-page1");
+const sep23Page2 = document.getElementById("sep23-page2");
+const sep23BeginButton = document.getElementById("sep23BeginButton");
+
 const gxCorner = document.getElementById("gxCorner");
 
 const sep15Page2 = document.getElementById("sep15-page2");
@@ -30,9 +49,15 @@ const sep15Page2Stars = document.getElementById("sep15Page2Stars");
 const sep15RevealCard = document.getElementById("sep15RevealCard");
 const sep15RevealButton = document.getElementById("sep15RevealButton");
 const sep15Page2Next = document.getElementById("sep15Page2Next");
+
+const sep23Page2Next = document.getElementById("sep23Page2Next");
+const sep23Page3 = document.getElementById("sep23-page3");
+
 const sep15MemoryPage = document.getElementById("sep15-memory-page");
 const memoryStars = document.getElementById("memoryStars");
 const memoryFinishButton = document.getElementById("memoryFinishButton");
+
+const sep23FinishButton = document.getElementById("sep23FinishButton");
 /* =========================================================
    PAGE 1 → PAGE 2
    ========================================================= */
@@ -94,24 +119,34 @@ function selectDate(date) {
 
     console.log("Selected date:", date);
 
+    // Hide ALL date-story pages first
+    sep15Page1.style.display = "none";
+    sep15Page2.style.display = "none";
+    sep15MemoryPage.style.display = "none";
+
+    sep23Page1.style.display = "none";
+    sep23Page2.style.display = "none";
+
+    // Hide date selection page
+    phase3.style.display = "none";
+
+
+    /* =========================
+       SEPTEMBER 15
+       ========================= */
+
     if (date === "15") {
 
         console.log("Opening September 15 Subpage 1 ❤️");
 
-        // Hide Page 3
-        phase3.style.display = "none";
-
-        // Show September 15 Subpage 1
         sep15Page1.style.display = "flex";
 
-        // Restart entrance animation
         sep15Page1.classList.remove("sep15-enter");
 
         void sep15Page1.offsetWidth;
 
         sep15Page1.classList.add("sep15-enter");
 
-        // Start from top
         window.scrollTo({
             top: 0,
             behavior: "smooth"
@@ -120,12 +155,47 @@ function selectDate(date) {
     }
 
 
+    /* =========================
+       SEPTEMBER 23
+       ========================= */
+
     if (date === "23") {
 
-        console.log("September 23 story selected ✨");
+        console.log("Opening September 23 Page 1 ✨");
 
-        // Leave this untouched for now
-        alert("This will unlock on 23 September Gadhi... 🫏");
+        sep23Page1.style.display = "flex";
+
+        sep23Page1.classList.remove("sep23-enter");
+
+        void sep23Page1.offsetWidth;
+
+        sep23Page1.classList.add("sep23-enter");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+    if (date === "song") {
+
+        console.log("Opening special song page 🎵❤️");
+
+        phase3.style.display = "none";
+
+        songPage.style.display = "flex";
+
+        songPage.classList.remove("song-page-active");
+
+        void songPage.offsetWidth;
+
+        songPage.classList.add("song-page-active");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
 
     }
 
@@ -414,6 +484,317 @@ if (memoryFinishButton) {
         console.log(
             "September 15 story completed ❤️"
         );
+
+    });
+
+}
+
+if (sep23BeginButton && sep23Page1 && sep23Page2) {
+
+    sep23BeginButton.addEventListener("click", () => {
+
+        console.log("Opening September 23 Page 2 ✨");
+
+        // Prevent double clicks
+        sep23BeginButton.disabled = true;
+
+        // Start Page 1 exit animation
+        sep23Page1.classList.add("sep23-exit");
+
+        setTimeout(() => {
+
+            // Hide Page 1
+            sep23Page1.style.display = "none";
+
+            // Show Page 2
+            sep23Page2.style.display = "flex";
+
+            // Restart Page 2 entrance animation
+            sep23Page2.classList.remove("sep23-enter");
+
+            void sep23Page2.offsetWidth;
+
+            sep23Page2.classList.add("sep23-enter");
+
+            // Start from top
+            window.scrollTo(0, 0);
+
+            console.log("September 23 Page 2 opened ✨");
+
+        }, 800);
+
+    });
+
+}
+
+if (sep23Page2Next && sep23Page2 && sep23Page3) {
+
+    sep23Page2Next.addEventListener("click", () => {
+
+        console.log("Opening September 23 Page 3 ✨");
+
+        sep23Page2Next.disabled = true;
+
+        // Exit animation
+        sep23Page2.classList.add("sep23-exit");
+
+        setTimeout(() => {
+            sep23Page2.style.display = "none";
+            sep23Page3.style.display = "flex";
+            sep23Page3.classList.remove("sep23-enter");
+            void sep23Page3.offsetWidth;
+            sep23Page3.classList.add("sep23-enter");
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+            console.log("September 23 Page 3 opened ✨");
+        }, 800);
+    });
+}
+
+if (birthdaySong && songPlayButton) {
+
+    songPlayButton.addEventListener("click", () => {
+
+        if (birthdaySong.paused) {
+
+            birthdaySong.play();
+
+            songPlayIcon.textContent = "❚❚";
+
+            vinyl.classList.add("playing");
+
+        } else {
+
+            birthdaySong.pause();
+
+            songPlayIcon.textContent = "▶";
+
+            vinyl.classList.remove("playing");
+
+        }
+
+    });
+
+
+    birthdaySong.addEventListener("loadedmetadata", () => {
+
+        songProgress.max = birthdaySong.duration;
+
+        songDuration.textContent =
+            formatSongTime(birthdaySong.duration);
+
+    });
+
+
+    birthdaySong.addEventListener("timeupdate", () => {
+
+        songProgress.value =
+            birthdaySong.currentTime;
+
+        songCurrentTime.textContent =
+            formatSongTime(birthdaySong.currentTime);
+
+    });
+
+
+    songProgress.addEventListener("input", () => {
+
+        birthdaySong.currentTime =
+            songProgress.value;
+
+    });
+
+
+    birthdaySong.addEventListener("ended", () => {
+
+        songPlayIcon.textContent = "▶";
+
+        vinyl.classList.remove("playing");
+
+        songProgress.value = 0;
+
+        lyricLines.forEach(line => {
+            line.classList.remove("active");
+        });
+
+    });
+
+}
+
+
+function formatSongTime(seconds) {
+
+    if (!isFinite(seconds)) {
+        return "0:00";
+    }
+
+    const minutes =
+        Math.floor(seconds / 60);
+
+    const remainingSeconds =
+        Math.floor(seconds % 60);
+
+    return (
+        minutes +
+        ":" +
+        remainingSeconds
+            .toString()
+            .padStart(2, "0")
+    );
+
+}
+
+const lyricTimings = [0, 5, 7, 11, 15, 20];
+
+function updateLyrics() {
+
+    if (!birthdaySong || !lyricLines.length) return;
+
+    const currentTime = birthdaySong.currentTime;
+
+    let activeIndex = -1;
+
+    lyricLines.forEach((line, index) => {
+
+        const shouldReveal =
+            currentTime >= lyricTimings[index];
+
+        line.classList.toggle(
+            "revealed",
+            shouldReveal
+        );
+
+        if (shouldReveal) {
+            activeIndex = index;
+        }
+
+    });
+
+    lyricLines.forEach((line, index) => {
+
+        line.classList.toggle(
+            "active",
+            index === activeIndex
+        );
+
+    });
+}
+
+birthdaySong.addEventListener(
+    "timeupdate",
+    updateLyrics
+);
+
+birthdaySong.addEventListener(
+    "loadedmetadata",
+    updateLyrics
+);
+
+
+if (birthdaySong && lyricLines.length) {
+
+    birthdaySong.addEventListener("timeupdate", () => {
+
+        const currentTime =
+            birthdaySong.currentTime;
+
+        let activeIndex = -1;
+
+        for (let i = 0; i < lyricTimings.length; i++) {
+
+            if (
+                currentTime >= lyricTimings[i]
+            ) {
+                activeIndex = i;
+            }
+
+        }
+
+        lyricLines.forEach((line, index) => {
+
+            line.classList.toggle(
+                "active",
+                index === activeIndex
+            );
+
+        });
+
+    });
+
+}
+
+birthdaySong.addEventListener("ended", () => {
+
+    songPlayIcon.textContent = "▶";
+
+    vinyl.classList.remove("playing");
+
+    songProgress.value = 0;
+
+    lyricLines.forEach(line => {
+        line.classList.remove("revealed");
+        line.classList.remove("active");
+    });
+
+});
+
+if (songBackButton && songPage && phase3) {
+
+    songBackButton.addEventListener("click", () => {
+
+        console.log("Returning to Phase 3 🎵");
+
+        birthdaySong.pause();
+
+        songPlayIcon.textContent = "▶";
+
+        vinyl.classList.remove("playing");
+
+        songPage.style.display = "none";
+
+        songPage.classList.remove(
+            "song-page-active"
+        );
+
+        phase3.style.display = "flex";
+
+        phase3.classList.remove("phase-enter");
+
+        void phase3.offsetWidth;
+
+        phase3.classList.add("phase-enter");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    });
+
+}
+
+if (sep23FinishButton) {
+
+    sep23FinishButton.addEventListener("click", () => {
+
+        console.log("September 23 story completed ❤️");
+
+        sep23Page3.style.display = "none";
+
+        phase3.style.display = "flex";
+
+        phase3.classList.remove("phase-enter");
+
+        void phase3.offsetWidth;
+
+        phase3.classList.add("phase-enter");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
 
     });
 
